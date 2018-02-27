@@ -28,6 +28,8 @@ public class RegisterServlet extends HttpServlet
 		 registerBean.setUserName(userName);
 		 registerBean.setPassword(password); 
 		 
+		 HttpSession session=request.getSession();
+		 session.setAttribute("uname", FirstName);
 		 RegisterDao registerDao = new RegisterDao();
 		 
 		 //The core Logic of the Registration application is present here. We are going to insert user data in to the database.

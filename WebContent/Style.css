@@ -2,7 +2,6 @@
 html, body {
   width: 100%;
   height: 100%;
-  margin: 0;
   font-family: Helvetica, Arial, sans-serif;
   overflow: hidden;
 }
@@ -88,15 +87,6 @@ html, body {
     padding-right: 0.75rem;
   }
 
-.legal {
-  position: absolute;
-  bottom: 1.125rem; left: 1.125rem;
-}
-
-.photo-cred {
-  position: absolute;
-  right: 1.125rem; bottom: 1.125rem;
-}
 
 .fullscreen-bg {
   position: fixed;
@@ -108,5 +98,3 @@ html, body {
 
 #toggle--login:checked ~ .form--signup { left:200%; visibility:hidden; }
 #toggle--signup:checked ~ .form--login { left:-100%; visibility:hidden; }
-
-@media (height:300px){.legal,.photo-cred{display:none}}
