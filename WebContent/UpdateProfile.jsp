@@ -9,12 +9,12 @@
 </head>
 <body>
 <form class="form form--signup framed" action="UpdateServlet" method="post">
-	<input type="text" placeholder="First Name" name="fname" class="input  input--top" required/>    
-	<input type="text" placeholder="Last name" name="lname" class="input" required/>
-	<input type="text" placeholder="User name" name="uname" class="input" required/>
-    <input type="email" placeholder="Email" name="email" class="input" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" required/>
+	<input type="text" placeholder="First Name"  value= <%= session.getAttribute( "fname" ) %> name="fname" class="input  input--top" required/>    
+	<input type="text" placeholder="Last name" value= <%= session.getAttribute( "lname" ) %> name="lname" class="input" required/>
+	<input type="text" placeholder="User name" value= <%= session.getAttribute( "uname" ) %> name="uname" class="input" disabled="disabled"/>
+    <input type="email" placeholder="Email" value= <%= session.getAttribute( "email" ) %> name="email" class="input" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" required/>
     <input type="text" placeholder="Age" name="age" class="input" required/>
-    <select name="sex" id="sex" class="input" requried>
+    <select name="gender" id="sex" class="input" requried>
                 <option value="dropdown">Please Select Gender</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
