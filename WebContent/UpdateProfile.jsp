@@ -6,10 +6,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Update Profile</title>
 <link rel="stylesheet" href="Style.css">
-
 </head>
 <body>
-<form class="form form--signup framed" action="RegisterServlet" method="post">
+<form class="form form--signup framed" action="UpdateServlet" method="post">
 	<input type="text" placeholder="First Name" name="fname" class="input  input--top" required/>    
 	<input type="text" placeholder="Last name" name="lname" class="input" required/>
 	<input type="text" placeholder="User name" name="uname" class="input" required/>

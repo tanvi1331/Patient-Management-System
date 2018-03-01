@@ -15,6 +15,8 @@ import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventDateTime;
 
+import main.java.Quickstart;
+
 /**
  * Servlet implementation class UpdateServlet
  */
@@ -40,17 +42,17 @@ public class UpdateServlet extends HttpServlet
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		/*com.google.api.services.calendar.Calendar service = getCalendarService();
-		com.google.api.services.calendar.model.Calendar calendar = service.calendars().get("primary").execute();
-		createEvent(null);*/
+
+		com.google.api.services.calendar.Calendar service = Quickstart.getCalendarService();
+		//com.google.api.services.calendar.model.Calendar calendar = service.calendars().get("primary").execute();
+		createEvent(service);
 		response.sendRedirect("https://calendar.google.com/calendar/embed?src=vuft4kt5m65oo56k7gse5qbbt0%40group.calendar.google.com&ctz=America%2FToronto");
 	}
-	
 public void createEvent(Calendar cal) throws IOException {       
 
 Event event = new Event();
-event.setSummary("Event name here");
-event.setLocation("event place here");
+event.setSummary("Doctor Appointment");
+event.setLocation("Thunder Bay");
 
 Date startDate = new Date();
 Date endDate = new Date(startDate.getTime() + 3600000);
