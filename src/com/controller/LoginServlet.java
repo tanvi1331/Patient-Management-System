@@ -5,6 +5,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.bean.LoginBean;
 import com.dao.LoginDao;
@@ -27,10 +28,11 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 	LoginDao loginDao = new LoginDao(); 
 
 	String userValidate = loginDao.authenticateUser(loginBean); 
-
+	HttpSession s=request.getSession();
 	if(userValidate.equals("SUCCESS")) 
 	{
 		request.setAttribute("uname", userName); 
+		s.setAttribute("pid", loginBean.getPid());
 		response.sendRedirect("/Patient_Management_System/Home.jsp");;
 	}
 	else

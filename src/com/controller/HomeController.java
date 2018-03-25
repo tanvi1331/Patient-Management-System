@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import main.java.CreateEvent;
+
 /**
  * Servlet implementation class HomeController
  */
@@ -39,8 +41,16 @@ public class HomeController extends HttpServlet {
 
 		if ("Update Profile".equals(action)) {
 		    response.sendRedirect("/Patient_Management_System/UpdateLoad");
-		} else if ("Book an Appointment".equals(action)) {
-			response.sendRedirect("https://calendar.google.com/calendar/embed?src=vuft4kt5m65oo56k7gse5qbbt0%40group.calendar.google.com&ctz=America%2FToronto");
+		} else if ("Book an Appointment".equals(action)) 
+		{
+			try 
+			{
+				//String link=CreateEvent.event();
+				response.sendRedirect("https://calendar.google.com/calendar/embed?src=4fg5rifrin0ir8ni4qpu3gv1e0%40group.calendar.google.com&ctz=America%2FToronto");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 

@@ -24,7 +24,7 @@ import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 public class Quickstart {
     /** Application name. */
     private static final String APPLICATION_NAME =
-        "Google Calendar API Java Quickstart";
+        "Google Calendar Patient Booking";
 
     /** Directory to store user credentials for this application. */
     private static final java.io.File DATA_STORE_DIR = new java.io.File(
@@ -45,11 +45,12 @@ public class Quickstart {
      * If modifying these scopes, delete your previously saved credentials
      * at ~/.credentials/calendar-java-quickstart
      */
-    private static final List<String> SCOPES =
-        Arrays.asList(CalendarScopes.CALENDAR_READONLY);
+    private static final List<String> SCOPES = Arrays.asList(CalendarScopes.CALENDAR);
 
-    static {
-        try {
+    static 
+    {
+        try 
+        {
             HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
             DATA_STORE_FACTORY = new FileDataStoreFactory(DATA_STORE_DIR);
         } catch (Throwable t) {
@@ -68,18 +69,14 @@ public class Quickstart {
         InputStream in = Quickstart.class.getResourceAsStream("/client_secret.json");
         GoogleClientSecrets clientSecrets =
             GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
-
         // Build flow and trigger user authorization request.
         GoogleAuthorizationCodeFlow flow =
-                new GoogleAuthorizationCodeFlow.Builder(
-                        HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
+                new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
                 .setDataStoreFactory(DATA_STORE_FACTORY)
                 .setAccessType("offline")
                 .build();
-        Credential credential = new AuthorizationCodeInstalledApp(
-                flow, new LocalServerReceiver()).authorize("user");
-            System.out.println(
-                    "Credentials saved to " + DATA_STORE_DIR.getAbsolutePath());
+        Credential credential = new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
+            System.out.println("Credentials saved to " + DATA_STORE_DIR.getAbsolutePath());
             return credential;
     }
 
@@ -112,6 +109,9 @@ public class Quickstart {
             .setOrderBy("startTime")
             .setSingleEvents(true)
             .execute();
+        
+        
+        
         List<Event> items = events.getItems();
         if (items.size() == 0) {
             System.out.println("No upcoming events found.");
