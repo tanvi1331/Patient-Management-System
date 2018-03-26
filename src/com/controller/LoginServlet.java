@@ -19,7 +19,6 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 {
 	String userName = request.getParameter("uname");
 	String password = request.getParameter("pass");
-
 	LoginBean loginBean = new LoginBean(); 
 	
 	loginBean.setUserName(userName); 
@@ -32,12 +31,12 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 	if(userValidate.equals("SUCCESS")) 
 	{
 		request.setAttribute("uname", userName); 
-		s.setAttribute("pid", loginBean.getPid());
-		response.sendRedirect("/Patient_Management_System/Home.jsp");;
+		s.setAttribute("uname", userName);
+		response.sendRedirect("/Patient_Management_System/Index.jsp");;
 	}
 	else
 	{
-		request.setAttribute("errMessage", userValidate); 
+		request.setAttribute("Invalid Username/Password", userValidate); 
 		request.getRequestDispatcher("/Login.jsp").forward(request, response);
 	}
 }

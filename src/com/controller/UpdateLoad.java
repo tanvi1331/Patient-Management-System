@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -46,9 +47,11 @@ public class UpdateLoad extends HttpServlet {
 		String firstname = null,lastname=null,email=null,username=null;
 		try 
 		{
+			HttpSession session=request.getSession();
+			String uname=(String) session.getAttribute("uname");
 			Connection c=DBConnection.createConnection();
 			Statement st = c.createStatement();
-			ResultSet rs = st.executeQuery("select * from users");
+			ResultSet rs = st.executeQuery("select * from users where username='"+uname+"'");
 			
 			while (rs.next())
 		      {
@@ -68,7 +71,7 @@ public class UpdateLoad extends HttpServlet {
 		session.setAttribute("lname", lastname);
 		session.setAttribute("uname", username);
 		session.setAttribute("email", email);
-		response.sendRedirect("/Patient_Management_System/UpdateProfile.jsp");
+		response.sendRedirect("/Patient_Management_System/UserProfile.jsp");
 	}
 
 }

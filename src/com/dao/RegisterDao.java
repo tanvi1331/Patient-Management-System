@@ -17,7 +17,7 @@ public class RegisterDao
 		try
 		{
 			Connection con = DBConnection.createConnection();
-			String query = "insert into users values (NULL,?,?,?,?,?,?)"; //Insert user details into the table 'USERS'
+			String query = "insert into users values (NULL,?,?,?,?,?,?,NULL)"; //Insert user details into the table 'USERS'
 			 PreparedStatement preparedStatement = con.prepareStatement(query); //Making use of prepared statements here to insert bunch of data
 			 preparedStatement.setString(1, firstName);
 			 preparedStatement.setString(2, lastName);
