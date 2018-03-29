@@ -22,6 +22,7 @@ public class TimeGetter extends HttpServlet
 
 public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 {
+	int count=0;
 	Time et=null,st=null;
 	HttpSession s=request.getSession();
 	int dId = (int) s.getAttribute("dId");
@@ -39,12 +40,15 @@ public void doGet(HttpServletRequest request, HttpServletResponse response) thro
 			 st=rs.getTime("start");
 			 et=rs.getTime("end");
 			System.out.println(st + " "+ et);
+			ArrayList<Time> avail=getTimeSlot(30, st, et);
+			avail.forEach(a -> System.out.println(a));
+			s.setAttribute("avail",avail);
+			s.setAttribute("enable", "true");
+			count++;
 		}
-		
-		ArrayList<Time> avail=getTimeSlot(30, st, et);
-		avail.forEach(a -> System.out.println(a));
-		s.setAttribute("avail",avail);
-		response.sendRedirect("Avail.jsp");
+		if(count==0){s.setAttribute("enable", "false");}
+		s.setAttribute("date",mydate);
+		response.sendRedirect("Scheduler.jsp");
 	} catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();

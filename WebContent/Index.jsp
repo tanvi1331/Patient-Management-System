@@ -34,6 +34,7 @@
 </head>
 
 <body class="fix-header fix-sidebar">
+
     <!-- Preloader - style you can find in spinners.css -->
     <div class="preloader">
         <svg class="circular" viewBox="25 25 50 50">
@@ -46,7 +47,7 @@
             <nav class="navbar top-navbar navbar-expand-md navbar-light">
                 <!-- Logo -->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index1.html">
+                    <a class="navbar-brand" href="/Patient_Management_System/Index.jsp">
                         <!-- Logo icon -->
                         <b><img src="images/MedLogoM.png" alt="homepage" class="dark-logo" /></b>
                         <!--End Logo icon -->
@@ -99,23 +100,22 @@
                         <li class="nav-label">Home</li>
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">Profile <span class="label label-rouded label-primary pull-right">2</span></span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="account-profile.html">Account Profile </a></li>
-                                <li><a href="medical-profile.html">Medical Profile </a></li>
+                                <li><a href="/Patient_Management_System/UserProfile.jsp">Account Profile </a></li>
+                                <li><a href="/Patient_Management_System/MedicalProf.jsp">Medical Profile </a></li>
                             </ul>
                         </li>
                         
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-table"></i><span class="hide-menu">Appointments</span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="doc-dept.html">Book an Appointment</a></li>
-                                <li><a href="table-datatable.html">View your Appointments</a></li>
+                                <li><a href="/Patient_Management_System/SearchDoc.jsp">Book an Appointment</a></li>
+                                <li><a href="/Patient_Management_System/ViewAppointment.jsp">View your Appointments</a></li>
                             </ul>
                         </li>
-                        
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-bar-chart"></i><span class="hide-menu">Med Docs</span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="chart-flot.html">Diagnostics</a></li>
-                                <li><a href="chart-morris.html">X-Rays</a></li>
-                                <li><a href="chart-chartjs.html">Prescriptions</a></li>
+                                <li><a href="/Patient_Management_System/Diagnostics.jsp">Diagnostics</a></li>
+                                <li><a href="/Patient_Management_System/Prescription.jsp">Prescriptions</a></li>
+                                <li><a href="/Patient_Management_System/XRay.jsp">X-Rays</a></li>
                                 
                             </ul>
                         </li>
@@ -123,8 +123,7 @@
 						
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-wpforms"></i><span class="hide-menu">Bills</span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="form-basic.html">View</a></li>
-                                <li><a href="form-layout.html">Add</a></li>                                
+                                <li><a href="/Patient_Management_System/Bill.jsp">View</a></li>
                             </ul>
                         </li>
                                                                         
@@ -142,7 +141,16 @@
             <!-- Bread crumb -->
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
-                <% HttpSession s=request.getSession(); %>
+     <sql:setDataSource var = "snapshot" driver = "com.mysql.jdbc.Driver"
+         url = "jdbc:mysql://localhost/patient"
+         user = "root"  password = "root"/>
+               <% HttpSession s=request.getSession();%>
+                <sql:query dataSource = "${snapshot}" var = "result">
+         			SELECT id FROM users where username='<%=s.getAttribute("uname")%>'
+      			</sql:query>
+      			 <c:forEach var = "row" items = "${result.rows}">
+                <c:set var="pId" value="${row.id}" scope="session" />
+                </c:forEach>
                     <h3 class="text-primary">Hello <%=s.getAttribute("uname")%>!</h3> </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
@@ -230,48 +238,32 @@
                             <div class="card-title">
                                 <h4>Appointments</h4>
                             </div>
+                            <sql:setDataSource var = "snapshot" driver = "com.mysql.jdbc.Driver"
+         url = "jdbc:mysql://localhost/patient"
+         user = "root"  password = "root"/>
+      <sql:query dataSource = "${snapshot}" var = "result">
+         SELECT a.*,d.* FROM doctordata AS d INNER JOIN appointment AS a ON (a.dId=d.dId) where pid=<%=s.getAttribute("pId")%>;
+      </sql:query>
                             <div class="card-body">
 								<div class="table-responsive">
 									<table class="table table-hover ">
 										<thead>
 											<tr>
 												<th>Doctor</th>
-												<th>Visits</th>
-												<th>Avg. time</th>
+												<th>Date</th>
+												<th>Time</th>
 											</tr>
 										</thead>
 										<tbody>
+											
+											<c:forEach var = "row" items = "${result.rows}">
 											<tr>
-												<td>George CAnning</td>
-												<td>2</td>
-												<td>01:00:00</td>
+												<td>${row.fname} ${row.lname}</td>
+												<td>${row.date}</td>
+												<td>${row.start} ${row.end}</td>
+												</c:forEach>
 											</tr>
-											<tr>
-												<td>Katherine Wales</td>
-												<td>1</td>
-												<td>00:30:00</td>
-											</tr>
-											<tr>
-												<td>Steven Walker</td>
-												<td>0</td>
-												<td>00:00:00</td>
-											</tr>
-											<!-- <tr>
-												<td>HTC Desire</td>
-												<td>38</td>
-												<td>00:01:40</td>
-											</tr>
-											<tr>
-												<td>Samsung</td>
-												<td>20</td>
-												<td>00:04:54</td>
-											</tr>
-											<tr>
-												<td>Apple iPad</td>
-												<td>1,006</td>
-												<td>00:03:41</td>
-											</tr> -->
-										</tbody>
+											</tbody>
 									</table>
 								</div>
 							</div>
@@ -544,25 +536,8 @@
     <script src="js/sidebarmenu.js"></script>
     <!--stickey kit -->
     <script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
-
-
-    <script src="js/lib/datamap/d3.min.js"></script>
-    <script src="js/lib/datamap/topojson.js"></script>
-    <script src="js/lib/datamap/datamaps.world.min.js"></script>
-    <script src="js/lib/datamap/datamap-init.js"></script>
-
-    <script src="js/lib/weather/jquery.simpleWeather.min.js"></script>
-    <script src="js/lib/weather/weather-init.js"></script>
-    <script src="js/lib/owl-carousel/owl.carousel.min.js"></script>
-    <script src="js/lib/owl-carousel/owl.carousel-init.js"></script>
-
-
-    <script src="js/lib/chartist/chartist.min.js"></script>
-    <script src="js/lib/chartist/chartist-plugin-tooltip.min.js"></script>
-    <script src="js/lib/chartist/chartist-init.js"></script>
     <!--Custom JavaScript -->
     <script src="js/custom.min.js"></script>
 
 </body>
-
 </html>

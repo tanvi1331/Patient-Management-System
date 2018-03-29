@@ -28,10 +28,12 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 
 	String userValidate = loginDao.authenticateUser(loginBean); 
 	HttpSession s=request.getSession();
+	System.out.println(loginBean.getPid());
 	if(userValidate.equals("SUCCESS")) 
 	{
 		request.setAttribute("uname", userName); 
 		s.setAttribute("uname", userName);
+		s.setAttribute("pId", loginBean.getPid());
 		response.sendRedirect("/Patient_Management_System/Index.jsp");;
 	}
 	else

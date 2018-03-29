@@ -10,6 +10,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.mortbay.jetty.servlet.AbstractSessionManager.Session;
 
 import com.dao.DBConnection;
 
@@ -41,16 +44,17 @@ public class UserProfile extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		 String FirstName = request.getParameter("fname");
+		HttpSession s=request.getSession(); 
+		String FirstName = request.getParameter("fname");
 		 String LastName = request.getParameter("lname");
 		 String email = request.getParameter("email");
-		 String userName = request.getParameter("uname");
+		 String userName = (String)s.getAttribute("uname");
 		 String pass = request.getParameter("pass");
 	//	doGet(request, response);
-		       
+		 System.out.println(FirstName + LastName + email + userName + pass);      
 			try {
 				Connection conn=DBConnection.createConnection();
-				String query = "update users set fname = ?, lname = ?,email=?,password=? where username = ?";
+				String query = "update users set fname = ?, lname = ?, email=?, password=? where username = ?";
 			      PreparedStatement preparedStmt=conn.prepareStatement(query);
 			      preparedStmt.setString(1, FirstName);
 			      preparedStmt.setString(2, LastName);
@@ -58,6 +62,8 @@ public class UserProfile extends HttpServlet {
 			      preparedStmt.setString(4, pass);
 			      preparedStmt.setString(5, userName);
 			      int i=preparedStmt.executeUpdate();
+			      System.out.println(i);
+			      conn.close();
 			      response.sendRedirect("/Patient_Management_System/Index.jsp");
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

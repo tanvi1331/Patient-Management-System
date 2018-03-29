@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
+import com.bean.LoginBean;
 import com.bean.RegisterBean;
 import com.dao.RegisterDao;
 @SuppressWarnings("serial")
@@ -30,6 +31,7 @@ public class RegisterServlet extends HttpServlet
 		 
 		 HttpSession session=request.getSession();
 		 session.setAttribute("uname", FirstName);
+		// session.setAttribute("pid", 1);
 		 RegisterDao registerDao = new RegisterDao();
 		 
 		 //The core Logic of the Registration application is present here. We are going to insert user data in to the database.
@@ -37,7 +39,7 @@ public class RegisterServlet extends HttpServlet
 		 
 		 if(userRegistered.equals("SUCCESS"))   //On success, you can display a message to user on Home page
 		 {
-		 request.getRequestDispatcher("/Home.jsp").forward(request, response);
+		 request.getRequestDispatcher("/Index.jsp").forward(request, response);
 		 }
 		 else   //On Failure, display a meaningful message to the User.
 		 {

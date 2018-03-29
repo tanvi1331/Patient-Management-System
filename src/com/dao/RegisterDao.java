@@ -36,7 +36,6 @@ public class RegisterDao
 			 e.printStackTrace();
 			 }
 			 
-			 return "Oops.. Something went wrong there..!";  // On failure, send a message from here.
-		
+			 return "Oops.. Something went wrong there..!";  // On failure, send a message from here.		
 	}
 }

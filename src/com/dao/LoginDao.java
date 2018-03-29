@@ -23,6 +23,7 @@ public String authenticateUser(LoginBean loginBean)
 			String userNameDB = resultSet.getString("username"); 
 			String passwordDB = resultSet.getString("password");
 			int pid=resultSet.getInt("id");
+			System.out.println("pid in Dao : " + pid);
 			loginBean.setPid(pid);
 			if(userName.equals(userNameDB) && password.equals(passwordDB))
 			{
